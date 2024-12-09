@@ -36,7 +36,7 @@ const camera = new THREE.PerspectiveCamera(
     1,
     100
 );
-camera.position.set(8, 3, -7);
+camera.position.set(18, 3, -7);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 0.5, 0);
@@ -56,6 +56,13 @@ const loadingManager = new LoadingManager(
             onComplete: () => {
                 loadingScreen.style.display = 'none';
             },
+        });
+
+        gsap.to(camera.position, {
+            x: camera.position.x - 10, // 調整相機位置（如果需要大角度移動）
+            duration: 2,
+            ease: 'power2.inOut',
+            onUpdate: () => controls.update(), // 同步更新控件
         });
     },
     // 資源加載進度
